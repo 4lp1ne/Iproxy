@@ -1,4 +1,4 @@
-# Ip-Roxy
+# IpRoxy
 
 ## IP Logger & Redirect Server
 
