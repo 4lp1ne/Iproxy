@@ -19,10 +19,10 @@ This project is a simple Node.js application that logs the public IP of incoming
 
 1. Clone the repository:
    `bash
-   git clone https://github.com/yourusername/ip-logger-redirect.git
+   git clone https://github.com/4lp1ne/Iproxy.git
    cd ip-logger-redirect
 
-2. Install dependencies:
+3. Install dependencies:
 
 npm install
 
