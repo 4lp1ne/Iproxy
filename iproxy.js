@@ -14,12 +14,14 @@ readline.question('Enter the link to redirect (without https://): ', inputUrl =>
     console.log(`Users will be redirected to: ${TARGET_URL}`);
     readline.close();
 
+    // Enable trust proxy if your app is behind a proxy
+    app.set('trust proxy', true);
+
     // Endpoint to log client public IP and redirect
     app.get('/', async (req, res) => {
         try {
-            // Fetch the public IP using an external service
-            const response = await axios.get('https://api.ipify.org?format=json');
-            const clientIP = response.data.ip;
+            // Get the client's IP address
+            const clientIP = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
             // Log the IP address with a timestamp
             const logEntry = `Timestamp: ${new Date().toISOString()} - IP: ${clientIP}\n`;
@@ -43,8 +45,8 @@ readline.question('Enter the link to redirect (without https://): ', inputUrl =>
                 res.redirect(TARGET_URL);
             });
         } catch (error) {
-            console.error('Error fetching public IP:', error);
-            res.status(500).json({ message: 'Failed to fetch public IP' });
+            console.error('Error logging IP:', error);
+            res.status(500).json({ message: 'Failed to log IP' });
         }
     });
 
